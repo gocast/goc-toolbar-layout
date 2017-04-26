@@ -1,0 +1,100 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../touch-item/touch-item.html">
+<link rel="import" href="../goc-apps/goc-app-icon.html">
+<link rel="import" href="../goc-apps/goc-apps-collection.html">
+<link rel="import" href="../goc-styles/goc-styles.html">
+<link rel="import" href="../goc-icons/goc-icons.html">
+
+<link rel="import" href="goc-toolbar-layout.html">
+
+<dom-module id="goc-app-toolbar-layout">
+  <template>
+    <style include="btn-styles icon-btn-styles">
+      :host {
+        display: block;
+      }
+
+      .toolbar-right {
+        display: flex;
+        align-items: center;
+      }
+
+      .back-btn {
+        min-width: 40px;
+      }
+
+      goc-app-icon {
+        margin: 0 6px;
+      }
+    </style>
+
+    <goc-apps-collection
+        app-name="[[appName]]"
+        item="{{_appDetail}}"
+        language="[[language]]"></goc-apps-collection>
+
+    <goc-toolbar-layout
+        heading="[[contentName]]"
+        subheading="[[_appDetail.displayName]]"
+        loading="[[loading]]">
+
+      <!-- Back button -->
+      <button
+          class="back-btn icon-btn icon-btn--primary"
+          on-click="_closeApp"
+          slot="toolbar-left">
+
+        <touch-item>
+          <iron-icon icon="arrow-back"></iron-icon>
+        </touch-item>
+      </button>
+
+      <goc-app-icon
+          size="small"
+          app-name="[[appName]]"
+          slot="toolbar-left"></goc-app-icon>
+
+      
+      <div class="toolbar-right" slot="toolbar-right">
+        <slot name="toolbar-right"></slot>
+      </div>
+
+      <slot></slot>
+
+    </goc-toolbar-layout>
+  </template>
+  <script>
+
+    class GocAppToolbarLayout extends Polymer.Element {
+
+      static get is() {return 'goc-app-toolbar-layout';}
+
+      static get properties() {
+        return {
+
+          appName: String,
+
+          contentName: String,
+
+          loading: Boolean,
+
+          language: String,
+
+          _appDetail: Object
+
+        };
+      }
+
+      _closeApp() {
+        this.dispatchEvent(new Event('close-app', {
+          bubbles: true,
+          composed: true
+        }));
+      }
+
+    }
+
+    customElements.define(GocAppToolbarLayout.is, GocAppToolbarLayout);
+
+  </script>
+</dom-module>
