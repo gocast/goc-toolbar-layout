@@ -3,7 +3,7 @@
   "main": "goc-toolbar-layout.html",
   "dependencies": {
     "goc-apps": "git@github.com:gocast/goc-apps.git",
-    "goc-icons": "git@github.com:gocast/goc-icons.git",
+    "goc-buttons": "git@github.com:gocast/goc-buttons.git",
     "goc-styles": "git@github.com:gocast/goc-styles.git#^0.1.0",
     "paper-spinner": "PolymerElements/paper-spinner#2.0-preview",
     "polymer": "Polymer/polymer#^2.0.0-rc.7",

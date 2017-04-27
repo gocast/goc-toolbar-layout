@@ -1,6 +1,6 @@
 <link rel="import" href="../polymer/polymer-element.html">
-<link rel="import" href="../paper-spinner/paper-spinner-lite.html">
 <link rel="import" href="../goc-styles/goc-styles.html">
+<link rel="import" href="goc-toolbar.html">
 
 <dom-module id="goc-toolbar-layout">
   <template>
@@ -15,19 +15,8 @@
           "content";
       }
 
-      [hidden] {
-        display: none !important;
-      }
-
-      .toolbar {
+      ::slotted(goc-toolbar) {
         grid-area: toolbar;
-
-        display: flex;
-        align-items: center;
-
-        background: White;
-        box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.20);
-        padding: 0 10px;
       }
 
       .content {
@@ -44,57 +33,12 @@
         -webkit-overflow-scrolling: touch;
       }
 
-      .toolbar__headings {
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-        margin: 0 4px;
-        white-space: nowrap;
-      }
-
-      @media(min-width: 640px) {
-        .toolbar__headings {
-          margin: 0 10px;
-        }
-      }
-
-      .toolbar__heading {
-        font-size: 17px;
-        font-weight: 600;
-      }
-
-      .toolbar__subheading {
-        font-size: 14px;
-      }
-
-      .spinner {
-        display: none;
-        height: 24px;
-        min-width: 24px;
-        padding: 10px 10px 10px 6px;
-        width: 24px;
-        --paper-spinner-color: var(--goc-primary-color);
-      }
-
-      .spinner[active] {
-        display: inline-block;
+      :host([full-width]) .content {
+        max-width: 100%;
       }
     </style>
 
-    <div class="toolbar">
-      <!-- left slot -->
-      <slot name="toolbar-left"></slot>
-
-      <div class="toolbar__headings">
-        <div class="toolbar__heading">[[heading]]</div>
-        <div class="toolbar__subheading">[[subheading]]</div>
-      </div>
-
-      <paper-spinner-lite class="spinner" active="[[loading]]"></paper-spinner-lite>
-
-      <!-- right slot -->
-      <slot name="toolbar-right"></slot>
-    </div>
+    <slot name="toolbar"></slot>
 
     <!-- content slot -->
     <div class="content">
@@ -112,13 +56,10 @@
       static get properties() {
         return {
 
-          heading: String,
-
-          subheading: String,
-
-          loading: Boolean,
-
-          language: String,
+          fullWidth: {
+            type: Boolean,
+            reflectToAttribute: true
+          }
 
         };
       }
